@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helena</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --header-color: #4B830D;
+            --background-color: #F5F0E6;
+            --text-color: #795548;
+            --link-color: #81D4FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--header-color);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 0 0 4px 4px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--header-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--header-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4B830D;
+            text-decoration: underline;
+        }
+
+        .subseccion {
+            margin-left: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--link-color);
+        }
+
+        footer {
+            background-color: var(--header-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="#resena">Inicio</a></li>
+                    <li><a href="#resena">Contexto</a></li>
+                    <li><a href="#resena">Reseña</a></li>
+                    <li><a href="#definiciones">Definiciones</a></li>
+                    <li class="dropdown">
+                        <a href="#clasificacion">Clasificación de las fuentes</a>
+                        <div class="dropdown-content">
+                            <a href="#subseccion1">Subsección 1</a>
+                            <a href="#subseccion2">Subsección 2</a>
+                            <a href="#subseccion3">Subsección 3</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Fuentes de financiamiento de proyectos ambientales</h1>
+
+        <section id="resena">
+            <h2>Reseña</h2>
+            <p>Colombia es un país ubicado al norte de América del Sur, con una población de más de 50 millones de habitantes. Según el Banco Internacional de Reconstrucción y Fomento/Banco Mundial, 2021, en su informe Hacia la construcción de una sociedad equitativa en Colombia, el país tiene uno de los niveles más altos de desigualdad de ingresos en el mundo; el segundo más alto entre 18 países de América Latina y el Caribe (ALC), y el más alto entre todos los países de la Organización para la Cooperación y el Desarrollo Económico -OCDE, aunque hubo una reducción significativa de la pobreza del 49,7% en 2002 al 28,2 % en 2019 y una expansión de la clase media y disminución de la desigualdad de ingresos (Banco Mundial, 2024) el país sigue estando en el top de los más desiguales del mundo.</p>
+            <p>Por otro lado, y para contrastar esta información el país es megadiverso, se estima que en el territorio existen entre 200.000 y 900.000 especies y puede decirse que por cada 10 especies que existen en el planeta, una habita en el país (SiB Colombia, 2022). Colombia es el 1er país es diversidad de aves, orquídeas y mariposas, el 2do país en variedad de anfibios, peces dulceacuícolas, palmas y murciélagos y el 6to en mamíferos (SiB Colombia, 2022). Pero no solo eso, el país es geodiverso cuenta con una amplia variedad de recursos naturales, cuenta con volcanes, sierras nevadas, grandes cadenas montañosas, yacimientos fosilíferos, aguas termales entre otros (Servicio Geológico Colombiano -SGC, s.f.). Además, Colombia cuenta con una gran diversidad en ecosistemas alrededor de 314 tipos, y 32 biomas terrestres incluyendo los páramos que aportan agua al 70% de la población (Ministerio de Ciencia, Tecnología e Innovación -Minciencias, 11 de septiembre de 2016).</p>
+            <p>Lamentablemente las primeras cifras han sido un gran impedimento para el desarrollo del país, un desarrollo fundamental en todas las áreas y en toda la población, esto ha llevado a atrasos en temas ambientales, en generación de energías renovables, y en el cumplimiento de los Objetivos del Desarrollo Sostenible (ODS). Colombia enfrenta un gran problema debido al cambio climático y aunque el país no es un gran generador de Gases de Efecto Invernadero- GEI, las consecuencias de los demás países si afectan al territorio colombiano. Un ejemplo de esto son las sequías y las lluvias extremas que ha enfrentado en los últimos años, generando alteraciones a los ecosistemas, inundaciones, deslizamientos, confusión en la población y aumentos del nivel del mar, entre otros.
+Esta situación demanda una respuesta desde todos los ámbitos y agentes, desde sectores públicos, privados, la academia, la cooperación internacional y demás, ya que se hace fundamental ejecutar proyectos que contribuyan a la adaptación, mitigación y transición hacia un desarrollo sostenible y resiliente con el clima.</p>
+        </section>
+
+        <section id="definiciones">
+            <h2>Definiciones</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+        </section>
+
+        <section id="clasificacion">
+            <h2>Clasificación de las fuentes</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            <div class="subseccion" id="subseccion1">
+                <h3>Subsección 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="subseccion" id="subseccion2">
+                <h3>Subsección 2</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+
+            <div class="subseccion" id="subseccion3">
+                <h3>Subsección 3</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </section>
+
+        <section id="recomendaciones">
+            <h2>Recomendaciones</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Página de Ejemplo. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
