@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector - Fuentes de Financiamiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        :root {
+            --header-color: #4B830D;
+            --background-color: #F5F0E6;
+            --text-color: #795548;
+            --link-color: #81D4FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--header-color);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 0 0 4px 4px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--header-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--header-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4B830D;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--header-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Estilos mejorados para tablas con encabezado fijo */
+        .tabla-container {
+            overflow: auto;
+            margin: 1.5rem 0;
+            max-height: 600px;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            background-color: var(--header-color);
+            color: white;
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 2px solid #3a6a0a;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        th:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 1px;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        th:last-child:after {
+            display: none;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+            vertical-align: top;
+            font-size: 0.9rem;
+        }
+
+        /* Estilos para campos con saltos de línea */
+        .campo-multilinea {
+            white-space: pre-line;
+            line-height: 1.4;
+            max-width: 300px;
+        }
+
+        .campo-enlace {
+            word-break: break-all;
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #f8f8f8;
+        }
+
+        tbody tr:hover td {
+            background-color: #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #d32f2f;
+            background-color: #ffebee;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .success {
+            text-align: center;
+            padding: 15px;
+            color: #2e7d32;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+
+        .tabla-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .contador-filas {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filtro-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            min-width: 200px;
+        }
+
+        .columna-numero {
+            width: 50px;
+            text-align: center;
+        }
+
+        .columna-enlace {
+            width: 150px;
+        }
+
+        .columna-descripcion {
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .columna-subsectores {
+            min-width: 200px;
+            max-width: 250px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+            }
+            
+            .tabla-container {
+                max-height: 500px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+
+            .filtro-input {
+                min-width: 100%;
+            }
+        }
+
+        /* Estilos para indicador visual del encabezado fijo */
+        .tabla-container::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        .tabla-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb {
+            background: var(--header-color);
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb:hover {
+            background: #3a6a0a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#resena">Reseña</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#definiciones">Definiciones</a>
+                        <div class="dropdown-content">
+                            <a href="index.html#cambioclimatico">Cambio climático</a>
+                            <a href="index.html#mitigacion">Mitigación</a>
+                            <a href="index.html#adaptacion">Adaptación</a>
+                            <a href="index.html#transicion">Transición energética</a>
+                            <a href="index.html#finanzasverdes">Finanzas verdes</a>
+                            <a href="index.html#biodiversidad">Biodiversidad</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="index.html#clasificacion">Clasificación</a>
+                        <div class="dropdown-content">
+                            <a href="sector.html">Sector</a>
+                            <a href="organizacion.html">Organización</a>
+                            <a href="tipo-financiacion.html">Tipo de financición</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Fuentes de Financiamiento por tipo de organización</h1>
+
+        <section>
+            <h2>Financiamiento por tipo de organización de aplicación</h2>
+            <p>Esta tabla muestra las diferentes fuentes de financiamiento disponibles clasificadas por tipo de organización de aplicación.</p>
+            
+            <div class="filtros">
+                <input type="text" id="filtroGlobal" class="filtro-input" placeholder="Buscar en todos los campos...">
+            </div>
+            
+            <div class="tabla-info">
+                <div class="contador-filas" id="contadorFilas">Cargando datos...</div>
+            </div>
+            
+            <div class="tabla-container">
+                <div class="loading" id="loadingMessage">Cargando datos CSV...</div>
+                <div id="tablaOrganizacion"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Luz Helena Martinez Suárez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarCSVConPapaParse('organizacion.csv', 'tablaOrganizacion');
+            
+            // Configurar filtro global
+            document.getElementById('filtroGlobal').addEventListener('input', function(e) {
+                filtrarTabla(e.target.value);
+            });
+        });
+
+        // Función para cargar CSV usando Papa Parse
+        async function cargarCSVConPapaParse(archivoCSV, contenedorId) {
+            try {
+                const response = await fetch(archivoCSV);
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar el archivo CSV');
+                }
+                
+                const csvData = await response.text();
+                
+                // Usar Papa Parse para parsear el CSV
+                Papa.parse(csvData, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        if (results.errors.length > 0) {
+                            console.warn('Errores en el parseo:', results.errors);
+                        }
+                        mostrarTabla(results.data, results.meta.fields, contenedorId);
+                    },
+                    error: function(error) {
+                        throw new Error('Error parseando CSV: ' + error.message);
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error cargando el CSV:', error);
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById(contenedorId).innerHTML = 
+                    `<div class="error">Error al cargar los datos: ${error.message}. Asegúrate de que el archivo ${archivoCSV} existe.</div>`;
+            }
+        }
+
+        // Función para mostrar la tabla con los datos parseados
+        function mostrarTabla(datos, encabezados, contenedorId) {
+            if (!datos || datos.length === 0) {
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById(contenedorId).innerHTML = 
+                    '<div class="error">No se encontraron datos en el archivo CSV.</div>';
+                return;
+            }
+
+            // Crear tabla
+            let tablaHTML = '<table>';
+            
+            // Encabezados
+            tablaHTML += '<thead><tr>';
+            encabezados.forEach((encabezado, index) => {
+                let claseEspecial = '';
+                if (encabezado === 'N°') claseEspecial = 'columna-numero';
+                else if (encabezado === 'Página web') claseEspecial = 'columna-enlace';
+                else if (encabezado === 'Descripción') claseEspecial = 'columna-descripcion';
+                else if (encabezado === 'Subsectores') claseEspecial = 'columna-subsectores';
+                
+                tablaHTML += `<th class="${claseEspecial}">${encabezado}</th>`;
+            });
+            tablaHTML += '</tr></thead><tbody>';
+            
+            // Datos
+            datos.forEach((fila, index) => {
+                if (Object.keys(fila).some(key => fila[key] && fila[key].trim() !== '')) {
+                    tablaHTML += '<tr>';
+                    encabezados.forEach(encabezado => {
+                        const valor = fila[encabezado] || '';
+                        let contenido = valor;
+                        let clases = '';
+                        
+                        // Aplicar clases especiales según el tipo de campo
+                        if (encabezado === 'N°') {
+                            clases += 'columna-numero ';
+                            contenido = index + 1; // Usar el índice + 1 como número
+                        } else if (encabezado === 'Página web' && esURL(valor)) {
+                            contenido = `<a href="${valor}" target="_blank" class="campo-enlace" title="${valor}">Visitar sitio</a>`;
+                            clases += 'campo-enlace ';
+                        } else if (necesitaMultilinea(valor)) {
+                            clases += 'campo-multilinea ';
+                        } else if (encabezado === 'Descripción') {
+                            clases += 'columna-descripcion ';
+                            if (necesitaMultilinea(valor)) {
+                                clases += 'campo-multilinea ';
+                            }
+                        } else if (encabezado === 'Subsectores') {
+                            clases += 'columna-subsectores ';
+                            if (necesitaMultilinea(valor)) {
+                                clases += 'campo-multilinea ';
+                            }
+                        }
+                        
+                        tablaHTML += `<td class="${clases.trim()}">${contenido}</td>`;
+                    });
+                    tablaHTML += '</tr>';
+                }
+            });
+            
+            tablaHTML += '</tbody></table>';
+            
+            // Ocultar mensaje de carga y mostrar tabla
+            document.getElementById('loadingMessage').style.display = 'none';
+            document.getElementById(contenedorId).innerHTML = tablaHTML;
+            
+            // Almacenar datos para filtrado
+            window.datosTabla = datos;
+            window.encabezadosTabla = encabezados;
+            
+            // Actualizar contador de filas
+            const totalFilas = datos.length;
+            const filasVisibles = document.querySelectorAll('tbody tr').length;
+            document.getElementById('contadorFilas').innerHTML = 
+                `<strong>${filasVisibles}</strong> de <strong>${totalFilas}</strong> registros cargados correctamente`;
+                
+        }
+
+        // Función para detectar si un campo necesita formato multilínea
+        function necesitaMultilinea(texto) {
+            return texto && (texto.includes('\n') || texto.length > 100);
+        }
+
+        // Función para detectar si es una URL
+        function esURL(texto) {
+            return texto && (texto.startsWith('http://') || texto.startsWith('https://'));
+        }
+
+        // Función de filtrado
+        function filtrarTabla(textoBusqueda) {
+            if (!window.datosTabla) return;
+            
+            const tabla = document.querySelector('table');
+            if (!tabla) return;
+            
+            const filas = tabla.querySelectorAll('tbody tr');
+            const texto = textoBusqueda.toLowerCase().trim();
+            let filasVisibles = 0;
+            
+            filas.forEach((fila, index) => {
+                const datosFila = window.datosTabla[index];
+                
+                if (!datosFila) {
+                    fila.style.display = 'none';
+                    return;
+                }
+                
+                // Buscar en todos los campos de la fila
+                const textoFila = Object.values(datosFila).join(' ').toLowerCase();
+                const coincide = texto === '' || textoFila.includes(texto);
+                
+                fila.style.display = coincide ? '' : 'none';
+                if (coincide) filasVisibles++;
+            });
+            
+            const totalFilas = window.datosTabla.length;
+            document.getElementById('contadorFilas').innerHTML = 
+                `<strong>${filasVisibles}</strong> de <strong>${totalFilas}</strong> registros`;
+        }
+    </script>
+</body>
+</html>

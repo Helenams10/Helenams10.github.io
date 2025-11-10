@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helena</title>
+    <title>Helena - Fuentes de Financiamiento Ambiental</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -142,6 +142,120 @@
             margin-top: 2rem;
         }
 
+        /* Estilos mejorados para tablas con encabezado fijo */
+        .tabla-container {
+            overflow: auto;
+            margin: 1.5rem 0;
+            max-height: 600px;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            background-color: var(--header-color);
+            color: white;
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 2px solid #3a6a0a;
+            position: relative;
+        }
+
+        th:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 1px;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        th:last-child:after {
+            display: none;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+            vertical-align: top;
+        }
+
+        /* Estilos para campos con saltos de línea */
+        .campo-multilinea {
+            white-space: pre-line;
+            line-height: 1.4;
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #f8f8f8;
+        }
+
+        tbody tr:hover td {
+            background-color: #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #d32f2f;
+            background-color: #ffebee;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .tabla-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .contador-filas {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .filtros {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filtro-input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            min-width: 200px;
+        }
+
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
@@ -151,6 +265,47 @@
                 position: static;
                 box-shadow: none;
             }
+            
+            .tabla-container {
+                max-height: 500px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+
+            .filtro-input {
+                min-width: 100%;
+            }
+        }
+
+        /* Estilos para indicador visual del encabezado fijo */
+        .tabla-container::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        .tabla-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb {
+            background: var(--header-color);
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb:hover {
+            background: #3a6a0a;
         }
     </style>
 </head>
@@ -159,16 +314,25 @@
         <div class="container">
             <nav>
                 <ul>
-                    <li><a href="#resena">Inicio</a></li>
-                    <li><a href="#resena">Contexto</a></li>
+                    <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#resena">Reseña</a></li>
-                    <li><a href="#definiciones">Definiciones</a></li>
+                    <li class="dropdown">
+                        <a href="#definiciones">Definiciones</a>
+                        <div class="dropdown-content">
+                            <a href="#cambioclimatico">Cambio climático</a>
+                            <a href="#mitigacion">Mitigación al cambio climático</a>
+                            <a href="#adaptacion">Adaptación al cambio climático</a>
+                            <a href="#transicion">Transición energética justa</a>
+                            <a href="#finanzasverdes">Finanzas verdes</a>
+                            <a href="#biodiversidad">Biodiversidad</a>
+                        </div>
+                    </li>
                     <li class="dropdown">
                         <a href="#clasificacion">Clasificación de las fuentes</a>
                         <div class="dropdown-content">
-                            <a href="#subseccion1">Subsección 1</a>
-                            <a href="#subseccion2">Subsección 2</a>
-                            <a href="#subseccion3">Subsección 3</a>
+                            <a href="sector.html">Sector</a>
+                            <a href="organizacion.html">Organización</a>
+                            <a href="tipo-financiacion.html">Tipo de financiación</a>
                         </div>
                     </li>
                 </ul>
@@ -176,8 +340,15 @@
         </div>
     </header>
 
+
     <main class="container">
         <h1>Fuentes de financiamiento de proyectos ambientales</h1>
+
+        <section id="inicio">
+            <h2>Manual Interactivo</h2>
+            <p>Este manual nace como opción de grado de la Especialización en Evaluación Ambiental de Proyectos pero también por la necesidad de tener espacios libres y de cooperación donde con la ayuda de cada uno se pueda crear una comunidad con un fin en común que es el cuidado del ambiente en el país.</p>
+            <p>Este manual nace como opción de grado de la Especialización en Evaluación Ambiental de Proyectos pero también por la necesidad de tener espacios libres y de cooperación donde con la ayuda de cada uno se pueda crear una comunidad con un fin en común que es el cuidado del ambiente en el país. </p>
+        </section>
 
         <section id="resena">
             <h2>Reseña</h2>
@@ -185,49 +356,73 @@
             <p>Por otro lado, y para contrastar esta información el país es megadiverso, se estima que en el territorio existen entre 200.000 y 900.000 especies y puede decirse que por cada 10 especies que existen en el planeta, una habita en el país (SiB Colombia, 2022). Colombia es el 1er país es diversidad de aves, orquídeas y mariposas, el 2do país en variedad de anfibios, peces dulceacuícolas, palmas y murciélagos y el 6to en mamíferos (SiB Colombia, 2022). Pero no solo eso, el país es geodiverso cuenta con una amplia variedad de recursos naturales, cuenta con volcanes, sierras nevadas, grandes cadenas montañosas, yacimientos fosilíferos, aguas termales entre otros (Servicio Geológico Colombiano -SGC, s.f.). Además, Colombia cuenta con una gran diversidad en ecosistemas alrededor de 314 tipos, y 32 biomas terrestres incluyendo los páramos que aportan agua al 70% de la población (Ministerio de Ciencia, Tecnología e Innovación -Minciencias, 11 de septiembre de 2016).</p>
             <p>Lamentablemente las primeras cifras han sido un gran impedimento para el desarrollo del país, un desarrollo fundamental en todas las áreas y en toda la población, esto ha llevado a atrasos en temas ambientales, en generación de energías renovables, y en el cumplimiento de los Objetivos del Desarrollo Sostenible (ODS). Colombia enfrenta un gran problema debido al cambio climático y aunque el país no es un gran generador de Gases de Efecto Invernadero- GEI, las consecuencias de los demás países si afectan al territorio colombiano. Un ejemplo de esto son las sequías y las lluvias extremas que ha enfrentado en los últimos años, generando alteraciones a los ecosistemas, inundaciones, deslizamientos, confusión en la población y aumentos del nivel del mar, entre otros.
 Esta situación demanda una respuesta desde todos los ámbitos y agentes, desde sectores públicos, privados, la academia, la cooperación internacional y demás, ya que se hace fundamental ejecutar proyectos que contribuyan a la adaptación, mitigación y transición hacia un desarrollo sostenible y resiliente con el clima.</p>
+            <p>A través de los años al país han llegado una cantidad de ayudas humanitarias entre ellas las ayudas del gobierno de los Estados Unidos por medio de la Agencia de los Estados Unidos para el Desarrollo Internacional o por sus siglas en inglés USAID, que equivalen a más 400 millones de dólares anuales, unos 1,6 billones de pesos colombianos (Stacey, 2025), para apoyar principalmente a la implementación de los Acuerdos de Paz, la Integración de los Migrantes de Países Vecinos y la Seguridad (Congressional Research Service, 2025).
+Sin embargo, con la posesión del segundo mandato del presidente Trump en los Estados Unidos acarreó un cambio de 180 grados en los recursos destinados a proyectos a nivel mundial, mediante la Orden Ejecutiva 14169 del 20 de enero de 2025, del U.S. Department of State “Reevaluación y realineación de la ayuda exterior de Estados Unidos” el presidente en primera instancia detuvo por 90 días la asistencia de la agencia de modo que se realizara una revisión exhaustiva de la misma. Posteriormente, Trump decidió cerrar la agencia de manera definitiva, dejando un gran vacío he incertidumbre a nivel global, pues solo en Colombia equivalía a más del 70% de fuentes de financiación humanitaria (La Silla Vacía, 2025) pero no únicamente humanitaria en el país se financiaban proyectos de cambio climático, de inclusión de género, de empoderamiento femenino, de prevención de deforestación, de conflicto armado entre otros.</p>
+            <p>Desafortunadamente este cierre no solo afecta al país, afecta globalmente, como nos indica Rabiu, A., et al., 2025 en su informe de políticas pues este cierre altera totalmente la gobernanza sanitaria a nivel global, amenaza la vigilancia a enfermedades y revierte los avances que se habían logrado a nivel sanitario. Pero no solo se ven afectados el sector salud, existían programas de vivienda, educación, de agua y hasta de saneamiento, afectando a las poblaciones más vulnerables como los refugiados, los migrantes, y por supuesto el medio ambiente (International Council of Voluntary Agencies, ICVA, 2025).</p>
+            <p>Lamentablemente otros donantes también han decidido disminuir la financiación entre ellos Alemania, Países Bajos y el Reino Unido (ICVA, 2025), provocando una desestabilización en organizaciones no gubernamentales que veían la ayuda exterior no solo como fuente de trabajo sino como forma de solventar algunos problemas del país.
+Dado la complejidad de la situación, no queda más que buscar alternativas que suplan el vacío que deja la cancelación del programa en temas tan importantes para nuestro territorio y sociedad, uno de ellos es China que podría verse interesada en intensificar la asistencia en Latinoamérica, África y el Pacífico moviendo la balanza geopolítica y debilitando más al país del norte (Fraser, S., 20 marzo de 2025).
+Por eso es fundamental explorar alternativas y este trabajo busca realizar un estudio de las fuentes de financiamiento en sectores clave como la transición energética justa, las finanzas verdes y la gestión del cambio climático.</p>
+            <p>Este tipo de investigación no solo hará aportes para las organizaciones en el sector ambiental, sino que intentará guiar a las organizaciones y profesionales en la búsqueda de oportunidades de financiamiento con agencias, organismos y/o fondos a nivel global, expandiendo las posibilidades laborales y movilizando recursos para el cuidado del territorio, y la adaptación y mitigación al cambio climático.</p>
         </section>
 
         <section id="definiciones">
             <h2>Definiciones</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-        </section>
 
-        <section id="clasificacion">
-            <h2>Clasificación de las fuentes</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <div class="subseccion" id="cambioclimatico">
 
-            <div class="subseccion" id="subseccion1">
-                <h3>Subsección 1</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h3>Cambio climático</h3>
+                <p>Según las Naciones Unidas, (s.f.), el cambio climático alude a los cambios de temperatura y de las condiciones climáticas, estos pueden ser debidos a procesos naturales o por actividades humanas, estás últimas han sido la causa principal por la quema de combustibles fósiles como el carbón, petróleo y gas.</p>
+                <p>Entre los cambios más significativos se encuentran el aumento del nivel del mar, sequías extremas, escasez de agua, retroceso de los glaciares, entre otros que son perjudiciales para el ser humano y para los ecosistemas. (Ministerio de Medio Ambiente y Desarrollo Sostenible, s.f.).</p>
+                <p>Para evitar estos cambios y futuras consecuencias se ha establecido un límite máximo de aumento de temperatura global para el año 2050 de 1.5°C, esto gracias a los acuerdos firmados en Paris, 2015 (United Nations Climate Change, s.f.).</p>
+                <p>Según WWF (s.f.) ¿Qué es el cambio climático?, aunque la crisis climática ya es evidente en muchas zonas del mundo no se ven cambios reales, ya que se sigue imponiendo el modelo basado en la alta demanda de combustibles fósiles y los compromisos de reducción siguen siendo insuficientes, y es que si la temperatura sigue subiendo las consecuencias serán catastróficas para todos.</p>
             </div>
 
-            <div class="subseccion" id="subseccion2">
-                <h3>Subsección 2</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="subseccion" id="mitigacion">
+                <h3>Mitigación al cambio climático</h3>
+                <p>De acuerdo con el Pacto Mundial (s.f.), la mitigación del cambio climático se centra en reducir las emisiones de gases de efecto invernadero (GEI) y en frenar de raíz este cambio. Otra definición la encontramos con la European Environmental Agency (s.f.) quien indica que la mitigación es tratar que los efectos del cambio climático sean menos graves, y para que esto suceda es importante la utilización de energías renovables o estableciendo un sistema de movilidad más limpio. Así mismo, según el Programa de las Naciones Unidas para el Desarrollo -PNUD (2024) existen varias estrategias para evitar el aumento de temperatura más allá de 1.5°C y así lograr la reducción de los GEI.</p>
             </div>
 
-            <div class="subseccion" id="subseccion3">
-                <h3>Subsección 3</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div class="subseccion" id="adaptacion">
+                <h3>Adaptación al cambio climático</h3>
+                <p>Según la European Environmental Agency (s.f.), la adaptación significa prever los efectos perjudiciales del cambio climático y por lo tanto adoptar las medidas apropiadas para prevenir o minimizar los daños que estos puedas causar, en otras palabras, es el proceso de ajuste a los efectos actuales y futuros del cambio climático. La adaptación se entiende como el proceso de ajuste entre los sistemas ecológicos, sociales o económicos frente a los estímulos climáticos reales o anticipados, así como a sus efectos e impactos (United Nations Climate Change, s.f.).</p>
+                <p>De acuerdo con ClimateScience, 2022, existen tres formas de adaptación:</p>
+                <ul>
+                    <li>Adaptación “reactiva” o “de acondicionamiento”</li>
+                        <p>Cuando ya se sienten los efectos del cambio climático, por ejemplo, el aumento del nivel del mar.</p>
+                    <li>Adaptación “preventiva”</li>
+                        <p>Cuando preferimos adaptarnos antes de sentir las consecuencias del cambio climático.</p>
+                    <li>Adaptaciones "sin" o "de bajo riesgo"</li>
+                        <p>Cuando las medidas son inmediatas, por ejemplo, la recolección de agua lluvia.</p>
+                </ul>
+
+
             </div>
+
+            <div class="subseccion" id="transicion">
+                <h3>Transición energética justa</h3>
+                <p>En el país nace un proceso clave para la lucha contra el cambio climático, la Transición Energética Justa que de acuerdo con el Ministerio de Minas y Energía (s.f.), en el Diagnostico Base para la Transición Energética Justa (TEJ), busca la transformación de los sistemas energéticos a un modelo bajo en gases de efecto invernadero (GEI). De acuerdo con IDEAM, et al., 2021, entre los años 1990 al 2018 la composición promedio de las emisiones fue de 63,4 % proveniente de agricultura, silvicultura y otros usos de la tierra (AFOLU, por su sigla en inglés); 28,4 % de energía; 5,3 % de residuos y 2,9 % de procesos industriales y uso de productos (IPPU, por su sigla en inglés), y solamente en el 2018 las emisiones del país fueron de 279,19 millones de toneladas CO2e, que representan el 0,39% de las emisiones del mundo.</p>
+            </div>
+
+            <div class="subseccion" id="finanzasverdes">
+                <h3>Finanzas Verdes</h3>
+                <p>Para lograr el objetivo de bajas emisiones, y no superar el 1.5°C de temperatura para el 2050, generar energías renovables y bajar al consumo de combustibles fósiles es de gran importancia la articulación de varios sectores, entre ellos el financiero. De acuerdo con el DNP, 2024, para lograr una transformación es necesario una inversión sin precedentes, en las cuales las finanzas estén orientadas a la acción climática y la biodiversidad. Existen diferentes mecanismos como, por ejemplo, los bonos verdes (muy controversiales), la inversión de proyectos verdes o el acceso a créditos a comunidades de bajos recursos.</p>
+            </div>
+
+            <div class="subseccion" id="biodiversidad">
+                <h3>Biodiversidad</h3>
+                <p>De acuerdo con las Naciones Unidas, s.f., la diversidad biológica o también llamada biodiversidad, es en pocas palabras la variedad de vida en la Tierra, en todas sus formas, desde genes y bacterias hasta ecosistemas completos como bosques, el resultado de 4,5 miles de millones de años de evolución, influenciados cada vez más por el ser humano. Es el eje fundamental para muchísimas cosas como; alimentos, agua, medicinas, un clima estable y crecimiento económico, entre otras.</p>
+                <p>Se construye a partir de tres hilos interconectados: diversidad de ecosistemas, diversidad de especies y diversidad genética. En pocas palabras, cuanto más diversos son estos sistemas naturales, más resistentes son a las perturbaciones (Greenpeace España, 2021).</p>
+                <p>En el país la pérdida de biodiversidad es del 18% y la mayor amenaza es la está en la pérdida de hábitats naturales, debido la agricultura y la ganadería expansiva (Instituto Humboldt, 2017).</p>
+            </div>
+
         </section>
 
-        <section id="recomendaciones">
-            <h2>Recomendaciones</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-        </section>
+
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2023 Página de Ejemplo. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Luz Helena Martinez Suárez. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>

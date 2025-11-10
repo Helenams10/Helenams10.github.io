@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector - Fuentes de Financiamiento</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --header-color: #4B830D;
+            --background-color: #F5F0E6;
+            --text-color: #795548;
+            --link-color: #81D4FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--header-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--header-color);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 0 0 4px 4px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+            color: var(--header-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-bottom: 2px solid var(--header-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #4B830D;
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--header-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+
+        /* Estilo tablas */
+        .tabla-container {
+            overflow: auto;
+            margin: 1.5rem 0;
+            max-height: 600px;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            background-color: var(--header-color);
+            color: white;
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: left;
+            border-bottom: 2px solid #3a6a0a;
+            position: relative;
+        }
+
+        th:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 25%;
+            height: 50%;
+            width: 1px;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        th:last-child:after {
+            display: none;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            background-color: white;
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #f8f8f8;
+        }
+
+        tbody tr:hover td {
+            background-color: #f1f1f1;
+            transition: background-color 0.2s ease;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
+            background-color: white;
+            border-radius: 8px;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #d32f2f;
+            background-color: #ffebee;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+        }
+
+        .tabla-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .contador-filas {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+            }
+            
+            .tabla-container {
+                max-height: 500px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+        }
+
+        /* Estilos para indicador visual del encabezado fijo */
+        .tabla-container::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+
+        .tabla-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb {
+            background: var(--header-color);
+            border-radius: 4px;
+        }
+
+        .tabla-container::-webkit-scrollbar-thumb:hover {
+            background: #3a6a0a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html#contexto">Contexto</a></li>
+                    <li><a href="index.html#resena">Reseña</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#definiciones">Definiciones</a>
+                        <div class="dropdown-content">
+                            <a href="index.html#cambioclimatico">Cambio climático</a>
+                            <a href="index.html#mitigacion">Mitigación</a>
+                            <a href="index.html#adaptacion">Adaptación</a>
+                            <a href="index.html#transicion">Transición energética</a>
+                            <a href="index.html#finanzasverdes">Finanzas verdes</a>
+                            <a href="index.html#biodiversidad">Biodiversidad</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="index.html#clasificacion">Clasificación</a>
+                        <div class="dropdown-content">
+                            <a href="sector.html">Sector</a>
+                            <a href="organizacion.html">Organización</a>
+                            <a href="tipo-financiamiento.html">Tipo de financiamiento</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1>Fuentes de Financiamiento por Sector</h1>
+
+        <section>
+            <h2>Financiamiento por Sector de Aplicación</h2>
+            <p>Esta tabla muestra las diferentes fuentes de financiamiento disponibles clasificadas por sector de aplicación.</p>
+            
+            <div class="tabla-info">
+                <div class="contador-filas" id="contadorFilas">Cargando datos...</div>
+            </div>
+            
+            <div class="tabla-container">
+                <div class="loading" id="loadingMessage">Cargando datos...</div>
+                <div id="tablaSector"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Luz Helena Martinez Suárez. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            cargarCSV('sector.csv', 'tablaSector');
+        });
+
+        async function cargarCSV(archivoCSV, contenedorId) {
+            try {
+                const response = await fetch(archivoCSV);
+                if (!response.ok) {
+                    throw new Error('No se pudo cargar el archivo CSV');
+                }
+                
+                const csvData = await response.text();
+                const filas = csvData.split('\n');
+                
+                if (filas.length < 2) {
+                    throw new Error('El archivo CSV está vacío o no tiene datos');
+                }
+                
+                // Crear tabla
+                let tablaHTML = '<table>';
+                
+                // Procesar cada fila
+                filas.forEach((fila, index) => {
+                    const celdas = fila.split(';');
+                    
+                    if (index === 0) {
+                        // Encabezados
+                        tablaHTML += '<thead><tr>';
+                        celdas.forEach(celda => {
+                            tablaHTML += `<th>${celda.trim()}</th>`;
+                        });
+                        tablaHTML += '</tr></thead><tbody>';
+                    } else {
+                        // Datos
+                        if (fila.trim() !== '') {
+                            tablaHTML += '<tr>';
+                            celdas.forEach(celda => {
+                                tablaHTML += `<td>${celda.trim()}</td>`;
+                            });
+                            tablaHTML += '</tr>';
+                        }
+                    }
+                });
+                
+                tablaHTML += '</tbody></table>';
+                
+                // Ocultar mensaje de carga y mostrar tabla
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById(contenedorId).innerHTML = tablaHTML;
+                
+                // Actualizar contador de filas
+                const totalFilas = Math.max(0, filas.length - 1);
+                document.getElementById('contadorFilas').textContent = `${totalFilas-1} registros encontrados`;
+                
+            } catch (error) {
+                console.error('Error cargando el CSV:', error);
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById(contenedorId).innerHTML = 
+                    `<div class="error">Error al cargar los datos: ${error.message}. Asegúrate de que el archivo ${archivoCSV} existe.</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
