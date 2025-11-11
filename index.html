@@ -307,6 +307,60 @@
         .tabla-container::-webkit-scrollbar-thumb:hover {
             background: #3a6a0a;
         }
+
+        /* Estilos para la sección Reseña con imagen y texto envolvente */
+.resena-content {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.resena-img {
+    width: 250px;
+    float: left;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.resena-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.resena-img img:hover {
+    transform: scale(1.05);
+}
+
+.resena-text {
+    overflow: hidden; /* Clearfix para contener el float */
+}
+
+.resena-text p {
+    text-align: justify;
+    margin-bottom: 1rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .resena-img {
+        float: none;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1.5rem;
+        display: block;
+    }
+    
+    .resena-text p {
+        text-align: left;
+    }
+}
+
+
+
     </style>
 </head>
 <body>
@@ -351,6 +405,11 @@
 
         <section id="resena">
             <h2>Reseña</h2>
+
+            <div class="resena-img">
+                    <img src="img/img1.png" alt="Historia de la tipografía" />
+                </div>
+
             <p>Colombia es un país ubicado al norte de América del Sur, con una población de más de 50 millones de habitantes. Según el Banco Internacional de Reconstrucción y Fomento/Banco Mundial, 2021, en su informe Hacia la construcción de una sociedad equitativa en Colombia, el país tiene uno de los niveles más altos de desigualdad de ingresos en el mundo; el segundo más alto entre 18 países de América Latina y el Caribe (ALC), y el más alto entre todos los países de la Organización para la Cooperación y el Desarrollo Económico -OCDE, aunque hubo una reducción significativa de la pobreza del 49,7% en 2002 al 28,2 % en 2019 y una expansión de la clase media y disminución de la desigualdad de ingresos (Banco Mundial, 2024) el país sigue estando en el top de los más desiguales del mundo.</p>
             <p>Por otro lado, y para contrastar esta información el país es megadiverso, se estima que en el territorio existen entre 200.000 y 900.000 especies y puede decirse que por cada 10 especies que existen en el planeta, una habita en el país (SiB Colombia, 2022). Colombia es el 1er país es diversidad de aves, orquídeas y mariposas, el 2do país en variedad de anfibios, peces dulceacuícolas, palmas y murciélagos y el 6to en mamíferos (SiB Colombia, 2022). Pero no solo eso, el país es geodiverso cuenta con una amplia variedad de recursos naturales, cuenta con volcanes, sierras nevadas, grandes cadenas montañosas, yacimientos fosilíferos, aguas termales entre otros (Servicio Geológico Colombiano -SGC, s.f.). Además, Colombia cuenta con una gran diversidad en ecosistemas alrededor de 314 tipos, y 32 biomas terrestres incluyendo los páramos que aportan agua al 70% de la población (Ministerio de Ciencia, Tecnología e Innovación -Minciencias, 11 de septiembre de 2016).</p>
             <p>Lamentablemente las primeras cifras han sido un gran impedimento para el desarrollo del país, un desarrollo fundamental en todas las áreas y en toda la población, esto ha llevado a atrasos en temas ambientales, en generación de energías renovables, y en el cumplimiento de los Objetivos del Desarrollo Sostenible (ODS). Colombia enfrenta un gran problema debido al cambio climático y aunque el país no es un gran generador de Gases de Efecto Invernadero- GEI, las consecuencias de los demás países si afectan al territorio colombiano. Un ejemplo de esto son las sequías y las lluvias extremas que ha enfrentado en los últimos años, generando alteraciones a los ecosistemas, inundaciones, deslizamientos, confusión en la población y aumentos del nivel del mar, entre otros.
